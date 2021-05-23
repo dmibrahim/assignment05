@@ -26,6 +26,7 @@ router.route(path+':studentid/address/:addressid' )
        .patch(studentController.PartialUpdateStudentAddress)(This will perfom a partial update of a student address.The client can only pass in the address information that needs update)
 
 6.GAME REVIEW ENDPOINTS
+
 const path = '/api/games/';
 router.route(path+'reviews')
       .get(reviewController.getAllReviews)  
@@ -38,7 +39,8 @@ router.route(path+':gameId/reviews/:reviewId')
       .delete(reviewController.deleteReview)
       
 7. GAME PUBLISHER ENDPOINTS
-8. const path = '/api/games/';
+
+const path = '/api/games/';
 router.route(path+'publishers')
       .get(publisherController.getAllPublishers)  
 router.route(path+':gameId/publishers')   
@@ -50,6 +52,7 @@ router.route(path+':gameId/publishers/:publisherId')
       .delete(publisherController.deletePublisher)
    
 8. GAME ENDPOINTS
+
 const path = '/api/games/';
 router.route(path)
       .get(gamesController.findAll )
