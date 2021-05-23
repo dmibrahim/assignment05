@@ -14,7 +14,9 @@ router.route(path)
 
 router.route(path+':studentid')
     .get(studentController.getOneStudent) (This returns one student by the id)
+    
     .put(studentController.fullUpdateStudent ) (This will perfom a full update of a student, technically it requires the client to pass in all required student information)
+    
     .patch(studentController.partiaUupdateStudent);(This will perfom a partial update on student, client doesnt need to pass in all information, but has to pass some)
 
 router.route(path+':studentid/address')
