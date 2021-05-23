@@ -29,16 +29,30 @@ const reviewController = {
          }
        })
    },
+   getGameReviewsByReviewId(req,res){
+    let gameid = req.params.gameId;
+    let reviewId = req.params.reviewId;
+   Game.findById(gameid).exec((error,data) =>{
+       
+         if(error){
+           res.json({status:500, msg:'Internal server error'})
+         }
+         else {
+             let oneReview = data.reviews.id(reviewId);
+           res.json({status:200, result:oneReview})
+         }
+       })
+   },
 
    addPReview(req,res){
         let gameid = req.params.gameId;
       
    
-    let review = new Review ({
+    let review = {
         name:req.body.name?req.body.name:'',
         review:req.body.review?req.body.review:'',
         date:new Date()
-    })
+    }
 
     if(Object.keys(review).length <3){
         res.status(500).json({msg:'Please enter name and review'})
@@ -53,6 +67,7 @@ const reviewController = {
         }
         else{
             if(data){
+                
               data.reviews.push(review);
               //  Game.updateOne({_id:gameid},{$set:{publisher:publisher}}).exec((err, data)=>{
                   Game.updateOne({_id:gameid},data).exec(function(err ,data) {

@@ -13,6 +13,7 @@ router.route(path+':gameId/reviews/:reviewId')
       .put(reviewController.updateReview)
       .patch(reviewController.partialReviewUpdate)
       .delete(reviewController.deleteReview)
+      .get(reviewController.getGameReviewsByReviewId)
 
 // router.route(path+':gameId/publishers/:publisherId')     
 //       .patch(publisherController.partialpublisherUpdate)

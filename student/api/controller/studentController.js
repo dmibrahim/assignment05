@@ -277,6 +277,61 @@ fullUpdateStudent (req,res){
         }
         
     })
+ },
+ deleteStudentAddresByAddressId(req,res){
+    let studentId = req.params.studentid;
+    let addressId = req.params.addressid;
+    
+  console.log('length',Object.keys(address).length)
+     if(Object.keys(address).length <= 0){
+         let msg = `Please supply address information you want updated`;
+
+         res.status(500).json({msg:msg})
+         return;
+     }
+    
+
+    Student.findById(studentId).exec((error,data) => {
+        if(error){
+         console.log('error:',error);
+         res.json({status:500, result:'Internal server error'});
+        }
+        else{
+            if(data){
+                let addr = data.address.id(addressId)
+                data.address.splice(addr,1);
+                 Student.updateOne({_id:studentId},data).exec((err, result)=>{
+                    if(err){
+                        console.log(err);
+                        res.json({status:500, result:'Internal server error'});  
+                    }
+                    else{
+                        res.json({status:201, result:'delete student address with id '+ addressId}); 
+                    }
+                });
+
+            }
+            else{
+                
+                    res.json({status:406, result:'No data found'});
+                
+            }
+        
+        }
+        
+    })
+ },
+ deleteStudentById(req, res){
+     let studentid = req.params.studentid;
+     Student.findByIdAndDelete(studentid).exec((err,data)=>{
+         if(err){
+             console.log(err);
+             res.status(500).json({msg:'Oops! Something wn=ent wrong'})
+         }
+         else{
+            res.status(202).json({msg:`Deleted a student with id ${studentid}`})  
+         }
+     })
  }
 }
 
